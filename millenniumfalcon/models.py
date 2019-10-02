@@ -1,0 +1,155 @@
+from django.db import models
+import uuid
+from django.urls import reverse
+
+class Client(models.Model):
+    """Model representing a Client."""
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for a client')
+    name = models.CharField(max_length=50, help_text='Enter the name of your organisation')
+    priority = models.IntegerField(help_text='Enter client priority. 0 = low')
+    country = models.CharField(max_length=3, help_text='3 digit country code')
+    address_line_1 = models.CharField(max_length=50, help_text='Enter address information here')
+    address_line_2 = models.CharField(max_length=50, help_text='Enter address information here')
+    address_line_3 = models.CharField(max_length=50, help_text='Enter address information here')
+    address_line_4 = models.CharField(max_length=50, help_text='Enter address information here')
+    dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
+    ucr = models.CharField(max_length=50, help_text='Creation user')
+    dlm = models.DateTimeField(auto_now=True, help_text='Last modification date')
+    ulm = models.CharField(max_length=50, help_text='Last modification user')
+
+    class Meta:
+        ordering = ['country']
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.name
+
+class Site(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for a site')
+    client_id = models.ForeignKey('Client', on_delete=models.SET_NULL, null=True)
+    name = models.CharField(max_length=50, help_text='Enter the name of your site')
+    priority = models.IntegerField(help_text='Enter site priority. 0 = low')
+    country = models.CharField(max_length=3, help_text='3 digit country code')
+    address_line_1 = models.CharField(max_length=50, help_text='Enter address information here')
+    address_line_2 = models.CharField(max_length=50, help_text='Enter address information here')
+    address_line_3 = models.CharField(max_length=50, help_text='Enter address information here')
+    address_line_4 = models.CharField(max_length=50, help_text='Enter address information here')
+    dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
+    ucr = models.CharField(max_length=50, help_text='Creation user')
+    dlm = models.DateTimeField(auto_now=True, help_text='Last modification date')
+    ulm = models.CharField(max_length=50, help_text='Last modification user')
+
+    class Meta:
+        ordering = ['country']
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.name
+
+class Area(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for an area')
+    site_id = models.ForeignKey('Site', on_delete=models.SET_NULL, null=True)
+    name = models.CharField(max_length=50, help_text='Enter the area name')
+    priority = models.IntegerField(help_text='Enter area priority. 0 = low')
+    dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
+    ucr = models.CharField(max_length=50, help_text='Creation user')
+    dlm = models.DateTimeField(auto_now=True, help_text='Last modification date')
+    ulm = models.CharField(max_length=50, help_text='Last modification user')
+
+    class Meta:
+        ordering = ['site_id']
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.name
+
+class System(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for a system')
+    area_id = models.ForeignKey('Area', on_delete=models.SET_NULL, null=True)
+    name = models.CharField(max_length=50, help_text='Enter the system name')
+    priority = models.IntegerField(help_text='Enter system priority. 0 = low')
+    dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
+    ucr = models.CharField(max_length=50, help_text='Creation user')
+    dlm = models.DateTimeField(auto_now=True, help_text='Last modification date')
+    ulm = models.CharField(max_length=50, help_text='Last modification user')
+
+    class Meta:
+        ordering = ['area_id']
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.name
+
+class Component(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for a component')
+    system_id = models.ForeignKey('System', on_delete=models.SET_NULL, null=True)
+    name = models.CharField(max_length=50, help_text='Enter the component name')
+    priority = models.IntegerField(help_text='Enter component priority. 0 = low')
+    golive = models.DateTimeField(help_text='Enter first usage of the component')
+    dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
+    ucr = models.CharField(max_length=50, help_text='Creation user')
+    dlm = models.DateTimeField(auto_now=True, help_text='Last modification date')
+    ulm = models.CharField(max_length=50, help_text='Last modification user')
+
+    class Meta:
+        ordering = ['system_id']
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.name
+
+    def get_absolute_url(self):
+        """Returns the url to access a detail record for this book."""
+        return reverse('book-detail', args=[str(self.id)])
+
+class Mission(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for a mission')
+    component_id = models.ForeignKey('Component', on_delete=models.SET_NULL, null=True)
+    name = models.CharField(max_length=50, help_text='Enter the mission name')
+    priority = models.IntegerField(help_text='Enter mission priority. 0 = low')
+    short_desc = models.CharField(max_length=200, help_text='Enter short description of the mission')
+    instruction = models.TextField(max_length=1000, help_text='Enter detailed instructions for the mission')
+    
+    MISSION_TYPE = (
+        ('p', 'PPM'),
+        ('r', 'REPAIR'),
+        ('c', 'CHECK'),
+    )
+    mission_type = models.CharField(
+        max_length=1,
+        choices = MISSION_TYPE,
+        blank=True,
+        default='c',
+        help_text='Mission type')
+    
+    MISSION_STATUS = (
+        ('i', 'IDLE'),
+        ('p', 'PENDING'),
+        ('a', 'ACTIVE'),
+    )
+    status = models.CharField(
+        max_length=1,
+        choices = MISSION_TYPE,
+        blank=True,
+        default='i',
+        help_text='Mission status')
+
+    last_execution = models.DateTimeField()
+    last_duration = models.CharField(max_length=10, help_text='Enter last duration')
+    planned_duration = models.CharField(max_length=10, help_text='Enter planned duration')
+    execution_interval = models.IntegerField(help_text='mission execution interval')
+    KPI_reference = models.CharField(max_length=10, help_text='Enter KPI')
+    dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
+    ucr = models.CharField(max_length=50, help_text='Creation user')
+    dlm = models.DateTimeField(auto_now=True, help_text='Last modification date')
+    ulm = models.CharField(max_length=50, help_text='Last modification user')
+
+    class Meta:
+        ordering = ['component_id', 'status']
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.name
+
+
+
