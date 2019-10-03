@@ -6,8 +6,8 @@ from .models import Client, Site, Area, System, Component, Mission
 from .serializers import ClientSerializer, SiteSerializer, AreaSerializer, SystemSerializer, ComponentSerializer, MissionSerializer
 
 
-#def index(request):
-    #return HttpResponse("<h1>Hello, world. I'm gonna be a CMMS one day</h1>")
+def index(request):
+    return HttpResponse("<h1>Hello, world. I'm gonna be a CMMS one day</h1>")
 
 #RESTing a bit below
 class ClientAPIView(generics.ListCreateAPIView):
