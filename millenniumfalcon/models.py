@@ -121,8 +121,8 @@ class Mission(models.Model):
     
     MISSION_STATUS = (
         ('i', 'IDLE'),
-        ('p', 'PAUSED'),
         ('a', 'ACTIVE'),
+        ('p', 'PAUSED'),
     )
     status = models.CharField(
         max_length=1,
@@ -131,10 +131,11 @@ class Mission(models.Model):
         default='i',
         help_text='Mission status')
 
-    last_execution = models.DateTimeField()
+    last_execution = models.DateTimeField(help_text='Enter last execution date')
     last_duration = models.CharField(max_length=10, help_text='Enter last duration')
     planned_duration = models.CharField(max_length=10, help_text='Enter planned duration')
     execution_interval = models.IntegerField(help_text='mission execution interval')
+    next_due = models.DateTimeField(help_text='Enter (calculate) next due date')
     KPI_reference = models.CharField(max_length=10, help_text='Enter KPI')
     dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
     ucr = models.CharField(max_length=50, help_text='Creation user') #ToDo: this one needs to be lined to user management
@@ -155,10 +156,11 @@ class Mission(models.Model):
         assigned_user = models.CharField(max_length=50, help_text='Assigned User')  #ToDo: this one needs to be lined to user management
         
         TASK_STATUS = (
+            ('c', 'CREATED')
             ('p', 'PLANNED'),
             ('a', 'ACTIVE'),
             ('f', 'FINISHED'),
-            ('c', 'CANCELLED'),
+            ('d', 'DEFERRED'),
         )
         status = models.CharField(
             max_length=1,
