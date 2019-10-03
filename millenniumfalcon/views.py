@@ -2,14 +2,12 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework import generics
 
-from .models import Client, Site, Area, System, Component, Mission, ExecTask
-from .serializers import ClientSerializer, SiteSerializer, AreaSerializer, SystemSerializer, ComponentSerializer, MissionSerializer, ExecTaskSerializer
+from .models import Client, Site, Area, System, Component, Mission
+from .serializers import ClientSerializer, SiteSerializer, AreaSerializer, SystemSerializer, ComponentSerializer, MissionSerializer
 
 
-def index(request):
-    return HttpResponse("<h1>Hello, world. I'm gonna be a CMMS one day</h1>")
-
-
+#def index(request):
+    #return HttpResponse("<h1>Hello, world. I'm gonna be a CMMS one day</h1>")
 
 #RESTing a bit below
 class ClientAPIView(generics.ListCreateAPIView):
@@ -36,6 +34,3 @@ class MissionAPIView(generics.ListCreateAPIView):
     queryset = Mission.objects.all()
     serializer_class = MissionSerializer
 
-class ExecTaskAPIView(generics.ListCreateAPIView):
-    queryset = ExecTask.objects.all()
-    serializer_class = TaskSerializer
