@@ -13,9 +13,9 @@ class Client(models.Model):
     address_line_3 = models.CharField(max_length=50, help_text='Enter address information here')
     address_line_4 = models.CharField(max_length=50, help_text='Enter address information here')
     dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
-    ucr = models.CharField(max_length=50, help_text='Creation user')
+    ucr = models.CharField(max_length=50, help_text='Creation user') #ToDo: this one needs to be lined to user management
     dlm = models.DateTimeField(auto_now=True, help_text='Last modification date')
-    ulm = models.CharField(max_length=50, help_text='Last modification user')
+    ulm = models.CharField(max_length=50, help_text='Last modification user') #ToDo: this one needs to be lined to user management
 
     class Meta:
         ordering = ['country']
@@ -35,9 +35,9 @@ class Site(models.Model):
     address_line_3 = models.CharField(max_length=50, help_text='Enter address information here')
     address_line_4 = models.CharField(max_length=50, help_text='Enter address information here')
     dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
-    ucr = models.CharField(max_length=50, help_text='Creation user')
+    ucr = models.CharField(max_length=50, help_text='Creation user') #ToDo: this one needs to be lined to user management
     dlm = models.DateTimeField(auto_now=True, help_text='Last modification date')
-    ulm = models.CharField(max_length=50, help_text='Last modification user')
+    ulm = models.CharField(max_length=50, help_text='Last modification user') #ToDo: this one needs to be lined to user management
 
     class Meta:
         ordering = ['country']
@@ -52,9 +52,9 @@ class Area(models.Model):
     name = models.CharField(max_length=50, help_text='Enter the area name')
     priority = models.IntegerField(help_text='Enter area priority. 0 = low')
     dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
-    ucr = models.CharField(max_length=50, help_text='Creation user')
+    ucr = models.CharField(max_length=50, help_text='Creation user') #ToDo: this one needs to be lined to user management
     dlm = models.DateTimeField(auto_now=True, help_text='Last modification date')
-    ulm = models.CharField(max_length=50, help_text='Last modification user')
+    ulm = models.CharField(max_length=50, help_text='Last modification user') #ToDo: this one needs to be lined to user management
 
     class Meta:
         ordering = ['site_id']
@@ -69,9 +69,9 @@ class System(models.Model):
     name = models.CharField(max_length=50, help_text='Enter the system name')
     priority = models.IntegerField(help_text='Enter system priority. 0 = low')
     dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
-    ucr = models.CharField(max_length=50, help_text='Creation user')
+    ucr = models.CharField(max_length=50, help_text='Creation user') #ToDo: this one needs to be lined to user management
     dlm = models.DateTimeField(auto_now=True, help_text='Last modification date')
-    ulm = models.CharField(max_length=50, help_text='Last modification user')
+    ulm = models.CharField(max_length=50, help_text='Last modification user') #ToDo: this one needs to be lined to user management
 
     class Meta:
         ordering = ['area_id']
@@ -83,13 +83,14 @@ class System(models.Model):
 class Component(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for a component')
     system_id = models.ForeignKey('System', on_delete=models.SET_NULL, null=True)
+    #supplier_id ToDo: add entity Supplier
     name = models.CharField(max_length=50, help_text='Enter the component name')
     priority = models.IntegerField(help_text='Enter component priority. 0 = low')
     golive = models.DateTimeField(help_text='Enter first usage of the component')
     dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
-    ucr = models.CharField(max_length=50, help_text='Creation user')
+    ucr = models.CharField(max_length=50, help_text='Creation user') #ToDo: this one needs to be lined to user management
     dlm = models.DateTimeField(auto_now=True, help_text='Last modification date')
-    ulm = models.CharField(max_length=50, help_text='Last modification user')
+    ulm = models.CharField(max_length=50, help_text='Last modification user') #ToDo: this one needs to be lined to user management
 
     class Meta:
         ordering = ['system_id']
@@ -97,10 +98,6 @@ class Component(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return self.name
-
-    def get_absolute_url(self):
-        """Returns the url to access a detail record for this book."""
-        return reverse('book-detail', args=[str(self.id)])
 
 class Mission(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for a mission')
@@ -124,7 +121,7 @@ class Mission(models.Model):
     
     MISSION_STATUS = (
         ('i', 'IDLE'),
-        ('p', 'PENDING'),
+        ('p', 'PAUSED'),
         ('a', 'ACTIVE'),
     )
     status = models.CharField(
@@ -140,9 +137,9 @@ class Mission(models.Model):
     execution_interval = models.IntegerField(help_text='mission execution interval')
     KPI_reference = models.CharField(max_length=10, help_text='Enter KPI')
     dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
-    ucr = models.CharField(max_length=50, help_text='Creation user')
+    ucr = models.CharField(max_length=50, help_text='Creation user') #ToDo: this one needs to be lined to user management
     dlm = models.DateTimeField(auto_now=True, help_text='Last modification date')
-    ulm = models.CharField(max_length=50, help_text='Last modification user')
+    ulm = models.CharField(max_length=50, help_text='Last modification user') #ToDo: this one needs to be lined to user management
 
     class Meta:
         ordering = ['component_id', 'status']
@@ -151,5 +148,40 @@ class Mission(models.Model):
         """String for representing the Model object."""
         return self.name
 
+    
+    class Task(models.Model):
+        id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for a Task')
+        mission_id = models.ForeignKey('Mission', on_delete=models.SET_NULL, null=True)
+        assigned_user = models.CharField(max_length=50, help_text='Assigned User')  #ToDo: this one needs to be lined to user management
+        
+        TASK_STATUS = (
+            ('p', 'PLANNED'),
+            ('a', 'ACTIVE'),
+            ('f', 'FINISHED'),
+            ('c', 'CANCELLED'),
+        )
+        status = models.CharField(
+            max_length=1,
+            choices = TASK_STATUS,
+            blank=True,
+            default='i',
+            help_text='Mission status',
+        )
+
+        planned_start = models.DateTimeField(help_text='Planned time of task execution')
+        act_start = models.DateTimeField(help_text='Task beginning timestamp')
+        act_end = models.DateTimeField(help_text='Task ending timestamp')
+        comment = models.CharField(max_length=50, help_text='Engineers comment') 
+        dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
+        ucr = models.CharField(max_length=50, help_text='Creation user') #ToDo: this one needs to be lined to user management
+        dlm = models.DateTimeField(auto_now=True, help_text='Last modification date')
+        ulm = models.CharField(max_length=50, help_text='Last modification user') #ToDo: this one needs to be lined to user management
+
+        class Meta:
+            ordering = ['status']
+
+        def __str__(self):
+            """String for representing the Model object."""
+            return self.id
 
 
