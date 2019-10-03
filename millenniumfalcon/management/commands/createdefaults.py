@@ -1,0 +1,1 @@
+# ToDo: every entitiy will get a default entity. E.g. in case a system is the same as a component, the default component would be used.
