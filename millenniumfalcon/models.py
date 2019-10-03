@@ -1,6 +1,7 @@
 from django.db import models
 import uuid
 from django.urls import reverse
+from django.utils.timezone import now
 
 class Client(models.Model):
     """Model representing a Client."""
@@ -135,7 +136,7 @@ class Mission(models.Model):
     last_duration = models.CharField(max_length=10, help_text='Enter last duration')
     planned_duration = models.CharField(max_length=10, help_text='Enter planned duration')
     execution_interval = models.IntegerField(help_text='mission execution interval')
-    next_due = models.DateTimeField(help_text='Enter (calculate) next due date')
+    next_due = models.DateTimeField(default = now, help_text='Enter (calculate) next due date')
     KPI_reference = models.CharField(max_length=10, help_text='Enter KPI')
     dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
     ucr = models.CharField(max_length=50, help_text='Creation user') #ToDo: this one needs to be lined to user management
@@ -156,7 +157,7 @@ class Mission(models.Model):
         assigned_user = models.CharField(max_length=50, help_text='Assigned User')  #ToDo: this one needs to be lined to user management
         
         TASK_STATUS = (
-            ('c', 'CREATED')
+            ('c', 'CREATED'),
             ('p', 'PLANNED'),
             ('a', 'ACTIVE'),
             ('f', 'FINISHED'),
@@ -170,9 +171,9 @@ class Mission(models.Model):
             help_text='Mission status',
         )
 
-        planned_start = models.DateTimeField(help_text='Planned time of task execution')
-        act_start = models.DateTimeField(help_text='Task beginning timestamp')
-        act_end = models.DateTimeField(help_text='Task ending timestamp')
+        planned_start = models.DateTimeField(default = now, help_text='Planned time of task execution')
+        act_start = models.DateTimeField(default = now, help_text='Task beginning timestamp')
+        act_end = models.DateTimeField(default = now, help_text='Task ending timestamp')
         comment = models.CharField(max_length=50, help_text='Engineers comment') 
         dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
         ucr = models.CharField(max_length=50, help_text='Creation user') #ToDo: this one needs to be lined to user management
