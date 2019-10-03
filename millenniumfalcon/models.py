@@ -151,7 +151,7 @@ class Mission(models.Model):
         return self.name
 
     
-    class Task(models.Model):
+    class ExecTask(models.Model):
         id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for a Task')
         mission_id = models.ForeignKey('Mission', on_delete=models.SET_NULL, null=True)
         assigned_user = models.CharField(max_length=50, help_text='Assigned User')  #ToDo: this one needs to be lined to user management
