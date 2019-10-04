@@ -13,4 +13,5 @@ urlpatterns +=[
     path(r'systems', views.SystemAPIView.as_view(), name='system-list'),
     path(r'components', views.ComponentAPIView.as_view(), name='component-list'),
     path(r'missions', views.MissionAPIView.as_view(), name='mission-list'),
+    path(r'tasks', views.MissionAPIView.as_view(), name='task-list'),
 ]
