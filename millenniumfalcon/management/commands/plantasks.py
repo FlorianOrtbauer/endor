@@ -1,11 +1,12 @@
 from django.core.management.base import BaseCommand, CommandError
 from millenniumfalcon.models import Mission 
 
-class Command(BaseCommand):
-    help = 'Planning job creating tasks out of missions'
 
-    def add_arguments(self, parser):
-        parser.add_argument('poll_ids', nargs='+', type=int)
+pending_missions = Mission.objects.all()
+
+
+
+#class Command(BaseCommand):
 
     # ToDo: Create logic that checks all missions in idle based on their last execution and the desired interval (interval via cron job). 
     # --> keep in mind KPIs to be considered in future
@@ -15,8 +16,10 @@ class Command(BaseCommand):
 
     #IDEA:  system parameters to define threshold to create mission-tasks before reaching the due-date of the mission
     #       based on that parameter, parametrisation of the cron job.
-
-
+    #help = 'Planning job creating tasks out of missions'
+    #def add_arguments(self, parser):
+        #parser.add_argument('poll_ids', nargs='+', type=int)
+    
     #def handle(self, *args, **options):
         #for poll_id in options['poll_ids']:
         #    try:
