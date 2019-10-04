@@ -127,7 +127,7 @@ class Mission(models.Model):
     )
     status = models.CharField(
         max_length=1,
-        choices = MISSION_TYPE,
+        choices = MISSION_STATUS,
         blank=True,
         default='i',
         help_text='Mission status')
@@ -150,4 +150,36 @@ class Mission(models.Model):
         """String for representing the Model object."""
         return self.name
 
+class Task(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for a mission')
+    mission_id = models.ForeignKey('Mission', on_delete=models.SET_NULL, null=True)
+
+    TASK_STATUS = (
+        ('c', 'CREATED'),
+        ('p', 'PLANNED'),
+        ('a', 'ACTIVE'),
+        ('d', 'DEFERRED'),
+        ('f', 'FINISHED'),
+    )
+    status = models.CharField(
+        max_length=1,
+        choices = TASK_STATUS,
+        blank=True,
+        default='c',
+        help_text='Task status')
+
+    actual_start = models.DateTimeField(null=True, default = '', help_text='Actual start timestamp of the task execution')
+    remark = models.CharField(max_length=200, help_text='Remark from execution user')
+
+    dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
+    ucr = models.CharField(max_length=50, help_text='Creation user') #ToDo: this one needs to be lined to user management
+    dlm = models.DateTimeField(auto_now=True, help_text='Last modification date')
+    ulm = models.CharField(max_length=50, help_text='Last modification user') #ToDo: this one needs to be lined to user management
+
+    class Meta:
+        ordering = ['status']
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.name
 
