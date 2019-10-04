@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework import generics
 
-from .models import Client, Site, Area, System, Component, Mission
-from .serializers import ClientSerializer, SiteSerializer, AreaSerializer, SystemSerializer, ComponentSerializer, MissionSerializer
+from .models import Client, Site, Area, System, Component, Mission, Task
+from .serializers import ClientSerializer, SiteSerializer, AreaSerializer, SystemSerializer, ComponentSerializer, MissionSerializer, TaskSerializer
 
 
 def index(request):
@@ -32,5 +32,9 @@ class ComponentAPIView(generics.ListCreateAPIView):
 
 class MissionAPIView(generics.ListCreateAPIView):
     queryset = Mission.objects.all()
+    serializer_class = MissionSerializer
+
+class TaskAPIView(generics.ListCreateAPIView):
+    queryset = Task.objects.all()
     serializer_class = MissionSerializer
 
