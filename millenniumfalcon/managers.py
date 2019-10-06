@@ -52,7 +52,7 @@ class TaskManager(models.Manager):
     def finish(self):
 
         # get Mission model (avoiding circular import via top lvl import)
-        Task = apps.get_model(app_label='millenniumfalcon', model_name='Mission')
+        Mission = apps.get_model(app_label='millenniumfalcon', model_name='Mission')
 
         # can only finish task if in status STARTED
         if(self.status in ('s')):
