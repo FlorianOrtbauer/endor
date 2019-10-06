@@ -2,7 +2,7 @@ from django.db import models
 import uuid
 from django.urls import reverse
 from django.utils.timezone import now
-from .managers import *
+from .managers import MissionManager, TaskManager
 
 class Client(models.Model):
     """Model representing a Client."""

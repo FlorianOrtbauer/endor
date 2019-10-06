@@ -1,14 +1,14 @@
 from django.db import models
 from django.utils.timezone import now
-from .models import Task, Mission
+from django.apps import apps
 
 class MissionManager(models.Manager):
-    class Meta:
-        model = Mission
-        fields = "__all__"
 
     # CREATE TASK from mission
     def createTask(self):
+        # get Task model (avoiding circular import via top lvl import)
+        Task = apps.get_model(app_label='millenniumfalcon', model_name='Task')
+
         # can only create if mission status is IDLE
         # mission status is ACTIVE once a task is created
         if(self.status == 'i'):
@@ -25,9 +25,6 @@ class MissionManager(models.Manager):
 
 
 class TaskManager(models.Manager):
-    class Meta:
-        model = Task
-        fields = "__all__"
 
     # START task
     def start(self):
@@ -53,6 +50,10 @@ class TaskManager(models.Manager):
 
     # FINISH task   
     def finish(self):
+
+        # get Mission model (avoiding circular import via top lvl import)
+        Task = apps.get_model(app_label='millenniumfalcon', model_name='Mission')
+
         # can only finish task if in status STARTED
         if(self.status in ('s')):
             # set status to finished
