@@ -150,6 +150,8 @@ class Mission(models.Model):
         """String for representing the Model object."""
         return self.name
 
+    
+
 class Task(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for a mission')
     mission_id = models.ForeignKey('Mission', on_delete=models.SET_NULL, null=True)
@@ -157,7 +159,7 @@ class Task(models.Model):
     TASK_STATUS = (
         ('c', 'CREATED'),
         ('p', 'PLANNED'),
-        ('a', 'ACTIVE'),
+        ('s', 'STARTED'),
         ('d', 'DEFERRED'),
         ('f', 'FINISHED'),
     )
@@ -183,3 +185,21 @@ class Task(models.Model):
         """String for representing the Model object."""
         return self.name
 
+    def start(self):
+        if(self.status in ('c', 'p')):
+            self.status = 's'
+            self.actual_start = now()
+        return self
+    
+    #first try for business logic
+    def defer(self):
+        if(self.status in ('p', 's')):
+            self.status = 'd'
+            self.actual_start = now()
+        return self
+    
+    def finish(self):
+        if(self.status in ('s')):
+            self.status = 'f'
+            self.actual_start = now()
+        return self
