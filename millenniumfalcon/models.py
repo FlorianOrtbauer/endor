@@ -157,7 +157,8 @@ class Mission(models.Model):
 class Task(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for a mission')
     mission_id = models.ForeignKey('Mission', on_delete=models.SET_NULL, null=True)
-
+    due_date = models.DateTimeField(default = now, help_text='Enter (calculate) next due date')
+    
     TASK_STATUS = (
         ('c', 'CREATED'),
         ('p', 'PLANNED'),
@@ -172,7 +173,7 @@ class Task(models.Model):
         default='c',
         help_text='Task status')
 
-    due_date = models.DateTimeField(default = now, help_text='Enter (calculate) next due date')
+    planned_start = models.DateTimeField(default = now, help_text='Enter planned starting timestamp')
     actual_start = models.DateTimeField(null=True, default = '', help_text='Actual start timestamp of the task execution')
     remark = models.CharField(max_length=200, help_text='Remark from execution user')
     dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')

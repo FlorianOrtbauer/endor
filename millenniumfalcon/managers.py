@@ -23,8 +23,31 @@ class MissionManager(models.Manager):
             task.save()
         return self
 
+    def pause(self):
+        # can only pause missions in status CREATED
+        if(self.status == 'i'):
+            self.status = 'p'
+            self.save()
+        return self
+    
+    def unpause(self):
+        # can only unpause missions in status PAUSED
+        if(self.status == 'p'):
+            self.status = 'i'
+            self.save()
+        return self
+
+
 
 class TaskManager(models.Manager):
+    
+    #PLAN task
+    def plan(self, startingDate):
+        #can only plan tasks if in status CREATED or DEFERRED
+        if(self.status in ('c', 'd')):
+            self.planned_start = startingDate
+            self.save()
+        return self
 
     # START task
     def start(self):
