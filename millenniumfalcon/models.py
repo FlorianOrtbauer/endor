@@ -2,6 +2,7 @@ from django.db import models
 import uuid
 from django.urls import reverse
 from django.utils.timezone import now
+from .managers import *
 
 class Client(models.Model):
     """Model representing a Client."""
@@ -150,6 +151,7 @@ class Mission(models.Model):
         """String for representing the Model object."""
         return self.name
 
+    objects = MissionManager()
     
 
 class Task(models.Model):
@@ -170,9 +172,9 @@ class Task(models.Model):
         default='c',
         help_text='Task status')
 
+    due_date = models.DateTimeField(default = now, help_text='Enter (calculate) next due date')
     actual_start = models.DateTimeField(null=True, default = '', help_text='Actual start timestamp of the task execution')
     remark = models.CharField(max_length=200, help_text='Remark from execution user')
-
     dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
     ucr = models.CharField(max_length=50, help_text='Creation user') #ToDo: this one needs to be lined to user management
     dlm = models.DateTimeField(auto_now=True, help_text='Last modification date')
@@ -185,21 +187,6 @@ class Task(models.Model):
         """String for representing the Model object."""
         return self.name
 
-    def start(self):
-        if(self.status in ('c', 'p')):
-            self.status = 's'
-            self.actual_start = now()
-        return self
-    
-    #first try for business logic
-    def defer(self):
-        if(self.status in ('p', 's')):
-            self.status = 'd'
-            self.actual_start = now()
-        return self
-    
-    def finish(self):
-        if(self.status in ('s')):
-            self.status = 'f'
-            self.actual_start = now()
-        return self
+    objects = TaskManager()
+ 
+
