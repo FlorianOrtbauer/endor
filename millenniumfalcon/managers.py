@@ -37,8 +37,6 @@ class MissionManager(models.Manager):
             self.save()
         return self
 
-
-
 class TaskManager(models.Manager):
     
     #PLAN task
@@ -95,3 +93,8 @@ class TaskManager(models.Manager):
             self.save()
             mission.save()
         return self
+
+
+#TODO QuerySets for:
+#           - next Due missions based on configurable timespan i.e. missions next 7 days
+#           - overdue missions -> next_due date already in the past.
