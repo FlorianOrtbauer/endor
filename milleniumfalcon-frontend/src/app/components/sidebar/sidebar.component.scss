@@ -1,0 +1,31 @@
+@import '../../../styles/components/sidebar.scss'; 
+@import '../../../styles/components/header.scss'; 
+
+.sidenav {
+    height: 100%;
+    width: $sidebar-width;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    // background: linear-gradient(to top right, #ff0000 0%, #3333ff 100%);
+    opacity: 0.6;
+    overflow-x: hidden;
+    padding-top: 20px;
+    background-image: 
+    /* top, transparent red */
+    linear-gradient(
+      rgba(132, 0, 255, 0.6), 
+      rgba(148, 12, 30, 0.6)
+    ),
+    /* your image */
+    url('../../../assets/pictures/HighwayOne.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+
+// .backgroundImage{
+//     background-image: url('../../../assets/pictures/HighwayOne.jpg');
+//     background-size: 100%;
+    
+// }
