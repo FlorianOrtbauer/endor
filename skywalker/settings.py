@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_filters',
     'millenniumfalcon',
     'corsheaders',
 ]
@@ -77,6 +78,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'skywalker.wsgi.application'
 
+REST_FRAMEWORK = {
+        'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
