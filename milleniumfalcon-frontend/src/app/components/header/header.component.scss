@@ -1,0 +1,27 @@
+@import '../../../styles/components/header.scss'; 
+@import '../../../styles/components/sidebar.scss'; 
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    height: $header-height;
+    overflow: hidden;
+    background-color: $header-color;
+  }
+  
+  li {
+    float: left;
+
+    & a {
+        display: block;
+        color: $color-menuitem;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+
+        &:hover {
+            color: $color-menuitem-selected;
+          }
+      }
+  }
