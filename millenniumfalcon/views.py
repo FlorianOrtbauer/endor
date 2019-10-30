@@ -31,19 +31,19 @@ class AreaAPIView(generics.ListCreateAPIView):
 class SystemAPIView(generics.ListCreateAPIView):
     queryset = System.objects.all()
     serializer_class = SystemSerializer
-    filterset_fields = ['area_id']
+    filterset_fields = ['area_id', 'id']
  
 
 class ComponentAPIView(generics.ListCreateAPIView):
     queryset = Component.objects.all()
     serializer_class = ComponentSerializer
-    filterset_fields = ['system_id']
+    filterset_fields = ['system_id', 'id']
  
 
 class MissionAPIView(generics.ListCreateAPIView):
     queryset = Mission.objects.all()
     serializer_class = MissionSerializer
-    filterset_fields = ['component_id']
+    filterset_fields = ['component_id', 'id']
    
 
 class TaskAPIView(generics.ListCreateAPIView):
