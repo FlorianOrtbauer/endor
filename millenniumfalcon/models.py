@@ -84,7 +84,7 @@ class System(models.Model):
 
 class Component(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for a component')
-    system_id = models.ForeignKey('System', on_delete=models.SET_NULL, null=True)
+    system_id = models.ForeignKey('System', on_delete=models.CASCADE, null=True)
     #supplier_id ToDo: add entity Supplier
     name = models.CharField(max_length=50, help_text='Enter the component name')
     priority = models.IntegerField(help_text='Enter component priority. 0 = low')
