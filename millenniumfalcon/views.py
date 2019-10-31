@@ -14,35 +14,47 @@ def index(request):
     return HttpResponse("<h1>Hello, world. I'm gonna be a CMMS one day</h1>")
 
 #RESTing a bit below
-class ClientAPIView(generics.ListCreateAPIView):
+class ClientsList(generics.ListCreateAPIView):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
     
-class SiteAPIView(generics.ListCreateAPIView):
+class SitesList(generics.ListCreateAPIView):
     queryset = Site.objects.all()
     serializer_class = SiteSerializer
 
-class AreaAPIView(generics.ListCreateAPIView):
+class AreasList(generics.ListCreateAPIView):
     queryset = Area.objects.all()
     serializer_class = AreaSerializer
     filterset_fields = ['site_id']
 
-class SystemAPIView(generics.ListCreateAPIView):
+class SystemsList(generics.ListCreateAPIView):
     queryset = System.objects.all()
     serializer_class = SystemSerializer
     filterset_fields = ['area_id', 'id']
 
-class ComponentAPIView(generics.RetrieveUpdateDestroyAPIView):
+class SystemDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = System.objects.all()
+    serializer_class = SystemSerializer
+
+class ComponentsList(generics.ListCreateAPIView):
     queryset = Component.objects.all()
     serializer_class = ComponentSerializer
     filterset_fields = ['system_id', 'id']
 
-class MissionAPIView(generics.RetrieveUpdateDestroyAPIView):
+class ComponentDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Component.objects.all()
+    serializer_class = ComponentSerializer
+
+class MissionsList(generics.ListCreateAPIView):
     queryset = Mission.objects.all()
     serializer_class = MissionSerializer
     filterset_fields = ['component_id', 'id']
 
-class TaskAPIView(generics.ListCreateAPIView):
+class MissionDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Mission.objects.all()
+    serializer_class = MissionSerializer
+
+class TasksList(generics.ListCreateAPIView):
     queryset = Task.objects.all()
     serializer_class = MissionSerializer
     filterset_fields = ['mission_id']
