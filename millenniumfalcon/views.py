@@ -17,8 +17,16 @@ def index(request):
 class ClientsList(generics.ListCreateAPIView):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
+
+class ClientDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
     
 class SitesList(generics.ListCreateAPIView):
+    queryset = Site.objects.all()
+    serializer_class = SiteSerializer
+
+class SiteDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Site.objects.all()
     serializer_class = SiteSerializer
 
@@ -26,6 +34,10 @@ class AreasList(generics.ListCreateAPIView):
     queryset = Area.objects.all()
     serializer_class = AreaSerializer
     filterset_fields = ['site_id']
+
+class AreaDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Area.objects.all()
+    serializer_class = AreaSerializer
 
 class SystemsList(generics.ListCreateAPIView):
     queryset = System.objects.all()
@@ -58,3 +70,7 @@ class TasksList(generics.ListCreateAPIView):
     queryset = Task.objects.all()
     serializer_class = MissionSerializer
     filterset_fields = ['mission_id']
+
+class TaskDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Task.objects.all()
+    serializer_class = MissionSerializer
