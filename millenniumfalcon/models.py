@@ -28,7 +28,7 @@ class Client(models.Model):
 
 class Site(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for a site')
-    client_id = models.ForeignKey('Client', on_delete=models.SET_NULL, null=True)
+    client_id = models.ForeignKey('Client', on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=50, help_text='Enter the name of your site')
     priority = models.IntegerField(help_text='Enter site priority. 0 = low')
     country = models.CharField(max_length=3, help_text='3 digit country code')
@@ -50,7 +50,7 @@ class Site(models.Model):
 
 class Area(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for an area')
-    site_id = models.ForeignKey('Site', on_delete=models.SET_NULL, null=True)
+    site_id = models.ForeignKey('Site', on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=50, help_text='Enter the area name')
     priority = models.IntegerField(help_text='Enter area priority. 0 = low')
     dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
@@ -67,7 +67,7 @@ class Area(models.Model):
 
 class System(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for a system')
-    area_id = models.ForeignKey('Area', on_delete=models.SET_NULL, null=True)
+    area_id = models.ForeignKey('Area', on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=50, help_text='Enter the system name')
     priority = models.IntegerField(help_text='Enter system priority. 0 = low')
     dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
@@ -103,7 +103,7 @@ class Component(models.Model):
 
 class Mission(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for a mission')
-    component_id = models.ForeignKey('Component', on_delete=models.SET_NULL, null=True)
+    component_id = models.ForeignKey('Component', on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=50, help_text='Enter the mission name')
     priority = models.IntegerField(help_text='Enter mission priority. 0 = low')
     short_desc = models.CharField(max_length=200, help_text='Enter short description of the mission')
