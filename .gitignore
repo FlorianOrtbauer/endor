@@ -1,3 +1,4 @@
 python workspace.code-workspace
 .vscode/settings.json
 start.sh
+__pycache__
