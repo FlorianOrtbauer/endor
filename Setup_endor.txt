@@ -1,0 +1,7 @@
+1.) Python installieren
+2.) pip install django
+3.) Downloaden: "mysqlclient-1.4.6-cp38-cp38-win32.whl" von https://www.lfd.uci.edu/~gohlke/pythonlibs/ 
+4.) pip install <pfad zu heruntergeladener Datei>
+5.) pip install djangorestframework
+6.) pip install django-filter
+7.) pip install django-cors-headers
