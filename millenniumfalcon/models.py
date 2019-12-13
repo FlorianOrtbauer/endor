@@ -15,9 +15,9 @@ class Client(models.Model):
     address_line_3 = models.CharField(max_length=50, help_text='Enter address information here')
     address_line_4 = models.CharField(max_length=50, help_text='Enter address information here')
     dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
-    ucr = models.CharField(max_length=50, help_text='Creation user') #ToDo: this one needs to be lined to user management
+    ucr = models.CharField(max_length=50, help_text='Creation user', default='Creation user') #ToDo: this one needs to be lined to user management
     dlm = models.DateTimeField(auto_now=True, help_text='Last modification date')
-    ulm = models.CharField(max_length=50, help_text='Last modification user') #ToDo: this one needs to be lined to user management
+    ulm = models.CharField(max_length=50, help_text='Last modification user', default='Creation user') #ToDo: this one needs to be lined to user management
 
     class Meta:
         ordering = ['country']
@@ -37,9 +37,9 @@ class Site(models.Model):
     address_line_3 = models.CharField(max_length=50, help_text='Enter address information here')
     address_line_4 = models.CharField(max_length=50, help_text='Enter address information here')
     dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
-    ucr = models.CharField(max_length=50, help_text='Creation user') #ToDo: this one needs to be lined to user management
+    ucr = models.CharField(max_length=50, help_text='Creation user', default='Creation user') #ToDo: this one needs to be lined to user management
     dlm = models.DateTimeField(auto_now=True, help_text='Last modification date')
-    ulm = models.CharField(max_length=50, help_text='Last modification user') #ToDo: this one needs to be lined to user management
+    ulm = models.CharField(max_length=50, help_text='Last modification user', default='Creation user') #ToDo: this one needs to be lined to user management
 
     class Meta:
         ordering = ['country']
@@ -54,9 +54,9 @@ class Area(models.Model):
     name = models.CharField(max_length=50, help_text='Enter the area name')
     priority = models.IntegerField(help_text='Enter area priority. 0 = low')
     dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
-    ucr = models.CharField(max_length=50, help_text='Creation user') #ToDo: this one needs to be lined to user management
+    ucr = models.CharField(max_length=50, help_text='Creation user', default='Creation user') #ToDo: this one needs to be lined to user management
     dlm = models.DateTimeField(auto_now=True, help_text='Last modification date')
-    ulm = models.CharField(max_length=50, help_text='Last modification user') #ToDo: this one needs to be lined to user management
+    ulm = models.CharField(max_length=50, help_text='Last modification user', default='Creation user') #ToDo: this one needs to be lined to user management
 
     class Meta:
         ordering = ['site_id']
@@ -71,9 +71,9 @@ class System(models.Model):
     name = models.CharField(max_length=50, help_text='Enter the system name')
     priority = models.IntegerField(help_text='Enter system priority. 0 = low')
     dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
-    ucr = models.CharField(max_length=50, help_text='Creation user') #ToDo: this one needs to be lined to user management
+    ucr = models.CharField(max_length=50, help_text='Creation user', default='Creation user') #ToDo: this one needs to be lined to user management
     dlm = models.DateTimeField(auto_now=True, help_text='Last modification date')
-    ulm = models.CharField(max_length=50, help_text='Last modification user') #ToDo: this one needs to be lined to user management
+    ulm = models.CharField(max_length=50, help_text='Last modification user', default='Last modification user') #ToDo: this one needs to be lined to user management
 
     class Meta:
         ordering = ['area_id']
@@ -90,9 +90,9 @@ class Component(models.Model):
     priority = models.IntegerField(help_text='Enter component priority. 0 = low')
     golive = models.DateTimeField(help_text='Enter first usage of the component')
     dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
-    ucr = models.CharField(max_length=50, help_text='Creation user') #ToDo: this one needs to be lined to user management
+    ucr = models.CharField(max_length=50, help_text='Creation user', default='Creation user') #ToDo: this one needs to be lined to user management
     dlm = models.DateTimeField(auto_now=True, help_text='Last modification date')
-    ulm = models.CharField(max_length=50, help_text='Last modification user') #ToDo: this one needs to be lined to user management
+    ulm = models.CharField(max_length=50, help_text='Last modification user', default='Creation user') #ToDo: this one needs to be lined to user management
 
     class Meta:
         ordering = ['system_id']
