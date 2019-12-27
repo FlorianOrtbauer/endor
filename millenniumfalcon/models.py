@@ -88,7 +88,7 @@ class Component(models.Model):
     #supplier_id ToDo: add entity Supplier
     name = models.CharField(max_length=50, help_text='Enter the component name')
     priority = models.IntegerField(help_text='Enter component priority. 0 = low')
-    golive = models.DateTimeField(help_text='Enter first usage of the component')
+    golive = models.DateTimeField(auto_now_add=True, help_text='Enter first usage of the component')
     dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
     ucr = models.CharField(max_length=50, help_text='Creation user', default='Creation user') #ToDo: this one needs to be lined to user management
     dlm = models.DateTimeField(auto_now=True, help_text='Last modification date')
