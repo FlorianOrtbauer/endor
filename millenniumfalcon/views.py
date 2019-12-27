@@ -25,6 +25,7 @@ class ClientDetail(generics.RetrieveUpdateDestroyAPIView):
 class SitesList(generics.ListCreateAPIView):
     queryset = Site.objects.all()
     serializer_class = SiteSerializer
+    filterset_fields = ['client_id']
 
 class SiteDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Site.objects.all()
