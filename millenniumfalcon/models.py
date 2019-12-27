@@ -88,7 +88,7 @@ class Component(models.Model):
     #supplier_id ToDo: add entity Supplier
     name = models.CharField(max_length=50, help_text='Enter the component name')
     priority = models.IntegerField(help_text='Enter component priority. 0 = low')
-    golive = models.DateTimeField(help_text='Enter first usage of the component')
+    golive = models.DateTimeField(auto_now_add=True, help_text='Enter first usage of the component')
     dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
     ucr = models.CharField(max_length=50, help_text='Creation user', default='Creation user') #ToDo: this one needs to be lined to user management
     dlm = models.DateTimeField(auto_now=True, help_text='Last modification date')
@@ -133,16 +133,16 @@ class Mission(models.Model):
         default='i',
         help_text='Mission status')
 
-    last_execution = models.DateTimeField(help_text='Enter last execution date')
-    last_duration = models.CharField(max_length=10, help_text='Enter last duration')
-    planned_duration = models.CharField(max_length=10, help_text='Enter planned duration')
-    execution_interval = models.IntegerField(help_text='mission execution interval')
-    next_due = models.DateTimeField(default = now, help_text='Enter (calculate) next due date')
-    KPI_reference = models.CharField(max_length=10, help_text='Enter KPI')
-    dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
-    ucr = models.CharField(max_length=50, help_text='Creation user') #ToDo: this one needs to be lined to user management
-    dlm = models.DateTimeField(auto_now=True, help_text='Last modification date')
-    ulm = models.CharField(max_length=50, help_text='Last modification user') #ToDo: this one needs to be lined to user management
+    last_execution = models.DateTimeField(default = now, help_text='Enter last execution date', blank=True)
+    last_duration = models.CharField(default = now, max_length=10, help_text='Enter last duration', blank=True)
+    planned_duration = models.CharField(default = now, max_length=10, help_text='Enter planned duration', blank=True)
+    execution_interval = models.IntegerField(default = 1, help_text='mission execution interval', blank=True)
+    next_due = models.DateTimeField(default = now, help_text='Enter (calculate) next due date', blank=True)
+    KPI_reference = models.CharField(max_length=10, help_text='Enter KPI', blank=True)
+    dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date', blank=True)
+    ucr = models.CharField(max_length=50, help_text='Creation user', blank=True) #ToDo: this one needs to be lined to user management
+    dlm = models.DateTimeField(auto_now=True, help_text='Last modification date', blank=True)
+    ulm = models.CharField(max_length=50, help_text='Last modification user', blank=True) #ToDo: this one needs to be lined to user management
 
     class Meta:
         ordering = ['component_id', 'status']
