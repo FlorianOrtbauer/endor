@@ -25,6 +25,7 @@ class ClientDetail(generics.RetrieveUpdateDestroyAPIView):
 class SitesList(generics.ListCreateAPIView):
     queryset = Site.objects.all()
     serializer_class = SiteSerializer
+    filterset_fields = ['client_id']
 
 class SiteDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Site.objects.all()
@@ -40,6 +41,7 @@ class AreaDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = AreaSerializer
 
 class SystemsList(generics.ListCreateAPIView):
+    
     queryset = System.objects.all()
     serializer_class = SystemSerializer
     filterset_fields = ['area_id', 'id']
