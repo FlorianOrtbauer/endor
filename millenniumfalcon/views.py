@@ -70,9 +70,9 @@ class MissionDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class TasksList(generics.ListCreateAPIView):
     queryset = Task.objects.all()
-    serializer_class = MissionSerializer
+    serializer_class = TaskSerializer
     filterset_fields = ['mission_id']
 
 class TaskDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Task.objects.all()
-    serializer_class = MissionSerializer
+    serializer_class = TaskSerializer
