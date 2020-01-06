@@ -12,7 +12,7 @@ from .serializers import ClientSerializer, SiteSerializer, AreaSerializer, Syste
 
 def index(request):
     return HttpResponse(
-        "<h1>CMMS Backend [REST API]</h1>"+
+        "<h1>simplyCare CMMS Backend [REST API]</h1>"+
         "<p>Python Django based backend for Campus02 Webentwicklung project.</p>"+
         "<p>Direct ressource access provides possibility to modify data in the database via the backend application.</p>"+
         "<p>URL:<i>url</i>/millenniumfalcon/<i>ressource</i> </p>"+
