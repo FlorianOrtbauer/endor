@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Client, Site, Area, System, Component, Mission, Task
+from .models import Client, Site, Area, System, Component, Mission, Task, Supplier
 
 class ClientSerializer(serializers.ModelSerializer):
     class Meta:
@@ -36,4 +36,7 @@ class TaskSerializer(serializers.ModelSerializer):
         model = Task
         fields = "__all__"
 
-
+class SupplierSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Supplier
+        fields = "__all__"

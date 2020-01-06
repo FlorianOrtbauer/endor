@@ -7,11 +7,33 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from .models import Client, Site, Area, System, Component, Mission, Task
-from .serializers import ClientSerializer, SiteSerializer, AreaSerializer, SystemSerializer, ComponentSerializer, MissionSerializer, TaskSerializer
+from .models import Client, Site, Area, System, Component, Mission, Task, Supplier
+from .serializers import ClientSerializer, SiteSerializer, AreaSerializer, SystemSerializer, ComponentSerializer, MissionSerializer, TaskSerializer, SupplierSerializer
 
 def index(request):
-    return HttpResponse("<h1>Hello, world. I'm gonna be a CMMS one day</h1>")
+    return HttpResponse(
+        "<h1>CMMS Backend [REST API]</h1>"+
+        "<p>Python Django based backend for Campus02 Webentwicklung project.</p>"+
+        "<p>Direct ressource access provides possibility to modify data in the database via the backend application.</p>"+
+        "<p>URL:<i>url</i>/millenniumfalcon/<i>ressource</i> </p>"+
+        "<h2>Available ressources:</h2>"+
+        "<h3>/clients</h3>"+
+        "<p>Backend filter option: none</p>"+
+        "<h3>/sites</h3>"+
+        "<p>Backend filter option: client_id</p>"+
+        "<h3>/areas</h3>"+
+        "<p>Backend filter option: site_id</p>"+
+        "<h3>/systems</h3>"+
+        "<p>Backend filter option: area_id, id</p>"+
+        "<h3>/components</h3>"+
+        "<p>Backend filter option: system_id, id</p>"+
+        "<h3>/missions</h3>"+
+        "<p>Backend filter option: component_id, id</p>"+
+        "<h3>/tasks</h3>"+
+        "<p>Backend filter option: task_id, id</p>"+
+        "<h3>/suppliers</h3>"+
+        "<p>Backend filter option: none</p>"
+        )
 
 #RESTing a bit below
 class ClientsList(generics.ListCreateAPIView):
@@ -76,3 +98,12 @@ class TasksList(generics.ListCreateAPIView):
 class TaskDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
+
+class SupplierList(generics.ListCreateAPIView):
+    queryset = Supplier.objects.all()
+    serializer_class = SupplierSerializer
+    #filterset_fields = ['client_id']
+
+class SupplierDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Supplier.objects.all()
+    serializer_class = SupplierSerializer

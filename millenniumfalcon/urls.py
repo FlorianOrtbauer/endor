@@ -22,4 +22,6 @@ urlpatterns +=[
     url(r'missions/(?P<pk>[-\w]+)/$', views.MissionDetail.as_view(), name='mission-detail'),
     url(r'tasks/$', views.TasksList.as_view(), name='task-list'),
     url(r'tasks/(?P<pk>[-\w]+)/$', views.TaskDetail.as_view(), name='task-detail'),
+    url(r'suppliers/$', views.SupplierList.as_view(), name='system-list'),
+    url(r'suppliers/(?P<pk>[-\w]+)/$', views.SupplierDetail.as_view(), name='system-detail'),
 ]

@@ -174,7 +174,7 @@ class Task(models.Model):
         help_text='Task status')
 
     planned_start = models.DateTimeField(default = now, help_text='Enter planned starting timestamp')
-    actual_start = models.DateTimeField(auto_now=True, help_text='Actual start timestamp of the task execution')
+    actual_start = models.DateTimeField(auto_now = True, help_text='Actual start timestamp of the task execution')
     remark = models.CharField(max_length=200, help_text='Remark from execution user')
     dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
     ucr = models.CharField(max_length=50, help_text='Creation user', blank=True) #ToDo: this one needs to be lined to user management
@@ -190,4 +190,23 @@ class Task(models.Model):
 
     objects = TaskManager()
  
+class Supplier(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for a supplier')
+    name = models.CharField(max_length=50, help_text='Enter the Supplier name')
+    country = models.CharField(max_length=3, help_text='3 digit country code')
+    address_line_1 = models.CharField(max_length=50, help_text='Enter address information here')
+    address_line_2 = models.CharField(max_length=50, help_text='Enter address information here', blank=True)
+    address_line_3 = models.CharField(max_length=50, help_text='Enter address information here', blank=True)
+    address_line_4 = models.CharField(max_length=50, help_text='Enter address information here', blank=True)
+    dcr = models.DateTimeField(auto_now_add=True, help_text='Creation date')
+    ucr = models.CharField(max_length=50, help_text='Creation user', default='Creation user') 
+    dlm = models.DateTimeField(auto_now=True, help_text='Last modification date')
+    ulm = models.CharField(max_length=50, help_text='Last modification user', default='Last modification user') 
+
+    class Meta:
+        ordering = ['name']
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.name
 
